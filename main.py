@@ -1,19 +1,3 @@
-import random
-from time import localtime
-from requests import get, post
-from datetime import datetime, date
-from zhdate import ZhDate
-import sys
-import os
-
-
-def get_color():
-    # 获取随机颜色
-    get_colors = lambda n: list(map(lambda i: "#" + "%06x" % random.randint(0, 0xFFFFFF), range(n)))
-    color_list = get_colors(100)
-    return random.choice(color_list)
-
-
 def get_access_token():
     # appId
     app_id = config["app_id"]
@@ -50,7 +34,7 @@ def get_weather(region):
     else:
         # 获取地区的location--id
         location_id = response["location"][0]["id"]
-    weather_url = "https://devapi.qweather.com/v7/weather/3d?location=101010100&={}&key={}".format(location_id, key)
+    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
     response = get(weather_url, headers=headers).json()
     # 天气
     weather = response["now"]["text"]
